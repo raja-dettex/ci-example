@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"server.port = 8080"})
-public class ExampleApplicatione2e {
+public class ExampleApplicatione2eTest {
 
     @LocalServerPort
     private int port;
