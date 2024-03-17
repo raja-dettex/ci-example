@@ -7,10 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -42,6 +39,10 @@ class RandController  {
 		return "hello welcome";
 	}
 
+	@PostMapping("/users/add")
+	public String addUser(@RequestBody User user) {
+		return this.userService.addUser(user)?"added":"failed";
+	}
 	@GetMapping("/users")
 	public List<User> getUsers() {
 		return this.userService.getAll();
@@ -65,6 +66,9 @@ class UserService {
 		return this.repo.findAll();
 	}
 
+	public boolean addUser(User user) {
+		return repo.addUser(user);
+	}
 	public User getById(int id) {
 		return this.repo.findById(id);
 	}
@@ -83,6 +87,9 @@ class UserRepo {
 		return this.users;
 	}
 
+	public boolean addUser(User user) {
+		return this.users.add(user);
+	}
 	public User findById(int id) {
 		return this.users.stream().filter( u -> u.getId() == id).findFirst().orElse(null);
 	}
